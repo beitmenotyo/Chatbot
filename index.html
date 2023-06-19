@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 7.5.2.2 (Windows)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="2023-06-19T10:11:00"/>
+	<style type="text/css">
+		@page { size: 8.27in 11.69in; margin: 0.79in }
+		p { color: #000000; line-height: 115%; orphans: 0; widows: 0; margin-bottom: 0.1in; direction: ltr; background: transparent }
+		p.western { font-family: "Liberation Serif", serif; font-size: 12pt; so-language: en-US }
+		p.cjk { font-family: "0"; font-size: 12pt; so-language: zh-CN }
+		p.ctl { font-family: "Arial"; font-size: 12pt; so-language: hi-IN }
+	</style>
+</head>
+<body lang="en-US" text="#000000" link="#000080" vlink="#800000" dir="ltr"><p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+&lt;!DOCTYPE html&gt;</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+&lt;html&gt;</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+&lt;head&gt;</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+  &lt;title&gt;Chatbot&lt;/title&gt;</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+&lt;/head&gt;</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+&lt;body&gt;</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+  &lt;h1&gt;Chatbot&lt;/h1&gt;</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+  &lt;div id=&quot;chat-container&quot;&gt;</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+    &lt;div id=&quot;chat-log&quot;&gt;&lt;/div&gt;</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+    &lt;input type=&quot;text&quot; id=&quot;user-input&quot;
+placeholder=&quot;Type your message...&quot; /&gt;</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+    &lt;button id=&quot;send-button&quot;&gt;Send&lt;/button&gt;</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+  &lt;/div&gt;</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+<br/>
+
+</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+  &lt;script&gt;</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+    const chatLog = document.getElementById('chat-log');</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+    const userInput = document.getElementById('user-input');</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+    const sendButton = document.getElementById('send-button');</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+<br/>
+
+</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+    async function sendMessage() {</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+      const message = userInput.value;</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+      if (message.trim() === '') return;</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+<br/>
+
+</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+      const response = await fetch('/chat', {</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+        method: 'POST',</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+        headers: {</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+          'Content-Type': 'application/json',</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+        },</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+        body: JSON.stringify({ message }),</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+      });</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+<br/>
+
+</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+      const data = await response.json();</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+      appendMessage('User', message);</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+      appendMessage('Chatbot', data.reply);</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+<br/>
+
+</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+      userInput.value = '';</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+    }</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+<br/>
+
+</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+    function appendMessage(sender, message) {</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+      const messageElement = document.createElement('div');</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+      messageElement.innerHTML = `&lt;strong&gt;${sender}:
+&lt;/strong&gt;${message}`;</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+      chatLog.appendChild(messageElement);</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+    }</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+<br/>
+
+</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+    sendButton.addEventListener('click', sendMessage);</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+    userInput.addEventListener('keyup', (event) =&gt; {</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+      if (event.key === 'Enter') sendMessage();</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+    });</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+  &lt;/script&gt;</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+&lt;/body&gt;</p>
+<p class="western" align="left" style="line-height: 100%; margin-bottom: 0in">
+&lt;/html&gt;</p>
+</body>
+</html>
